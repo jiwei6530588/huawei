@@ -1,0 +1,92 @@
+一 ENSP模拟器的安装
+
+二 ARP概念 A PING B之前去询问B对应的MAC地址。这个过程就叫做ARP
+把对方的ARP地址解析MAC地址的协议 广播发送。
+在主机A中会产生一张缓存表
+代理ARP
+路由器收到广播报文，会隔离报文
+
+
+三VRP基本配置
+vrp是通用路由平台，就类似于操作系统的概念
+1网络操作系统
+2支持多种设备软件平台（路由器，交换机，防火墙）
+3提供TCP/IP路由服务
+
+路由器和PC链接的方式
+1CONSOLE线
+2RS232（驱动）
+
+命令简介
+用户视图
+系统视图 system-view quit返回上一级
+接口视图 interface g0/0/0进入接口视图
+任何模式下。退出到用户模式return
+
+命令行帮助 使用？
+
+配置路由器名称 sysname R1 
+
+配置系统时钟 在华为配置里面，所有查看都是display
+display clock 
+用户模式下clock datetime 20:20:00 2018-12-12
+
+ip 地址的配置 
+接口模式下 ip address 12.1.1.1 24
+可以抓包
+
+查询配置命令
+display curren-configure 查看路由器所有的配置
+display this 当前模式下做过的配置
+display ip interface brief
+Physical down表示物理接口没有打开，华为默认配置完IP自动打开，关闭接口shutdown 打开是undo shutdonw
+phsical如果是down protocol肯定down
+phsical如果是uP ，protocol DOWN 表示协议不匹配，无法传输数据
+
+开启telnet功能
+要telnet成功。两边路由器要相互PING通
+user-interface vty 0 4 开启五个虚拟线路
+user privilege level 3 把五条线路权限提高到最高管理
+authentication-mode password 或者是authentication-mode password cipher
+0-15 0是参观 3是最高管理权限，2配置权限，1访问权限 3以上都是管理员权限
+
+密码模式
+ telnet server enable
+user-interface vty 0 4
+user privilege level 3
+authentication-mode password 
+protocol inbound telnet  配置vty用户界面支持telnet 默认是支持所有协议的,
+
+
+AAA验证
+user-interface vty 0 4
+user privilege level 3
+authentication-mode aaa
+quit 退出vTY用户界面
+aaa  进入AAA视图
+local-user admin1234 password ?查看方式
+local-user admin1234 service-type telnet 
+quit
+commit
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
